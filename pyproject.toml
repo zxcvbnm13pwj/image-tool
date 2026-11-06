@@ -1,0 +1,9 @@
+[project]
+name = "image-tool"
+version = "0.1.0"
+description = "读取图片信息并进行简单编辑的命令行工具（OpenCV）"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "opencv-python-headless>=4.8.0",
+]

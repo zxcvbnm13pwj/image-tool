@@ -1,0 +1,36 @@
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# uv
+.uv/
+
+# 编辑结果（由程序生成，非源码）
+*_resized_*.jpg
+*_resized_*.png
+*_crop_*.jpg
+*_crop_*.png
+*_rotate_*.jpg
+*_rotate_*.png
+*_flip_*.jpg
+*_flip_*.png
+*_gray.jpg
+*_gray.png
+*_converted.jpg
+*_converted.png
+
+# 体积过大的测试图片（按需保留少量小图作为示例）
+*.bmp
+*.tiff
+test_images/
+
+# 系统/编辑器
+.DS_Store
+*.swp
