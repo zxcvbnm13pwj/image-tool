@@ -120,6 +120,13 @@ python main.py convert demo.jpg --to png    # JPG 转 PNG
 输出文件：`demo_converted.jpg` 或 `demo_converted.png`
 > 带透明通道的 PNG 转 JPG 时，会自动先转成 RGB（透明区域变为白色），并给出提示。
 
+### 3.8 亮度调节
+```bash
+python main.py bright demo.jpg --value 30     # 变亮
+python main.py bright demo.jpg --value -30    # 变暗
+```
+输出文件：`demo_bright_30.jpg`（或 `demo_bright_-30.jpg`）
+
 ---
 
 ## 4. 常见问题
@@ -139,3 +146,16 @@ image-tool/
 ├── .gitignore       # 忽略虚拟环境、缓存、过大的图片
 └── README.md        # 本说明文件
 ```
+
+---
+
+## 6. 快速开始（一行命令）
+
+激活环境后，用一张真实图片（如 `demo.jpg`）即可体验全部功能：
+
+```bash
+python main.py info demo.jpg && \
+python main.py resize demo.jpg -W 800 && \
+python main.py bright demo.jpg --value 30
+```
+
