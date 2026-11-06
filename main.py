@@ -188,6 +188,22 @@ def grayscale_image(path):
     return out
 
 
+def brightness_image(path, value):
+    """调整亮度：value 为增量（正数变亮，负数变暗）。"""
+    img, _ = load_image(path)
+    if img.ndim == 3 and img.shape[2] == 4:
+        # 带透明通道时只调 RGB，避免改动 alpha
+        bgr = img[:, :, :3]
+        alpha = img[:, :, 3]
+        bgr = cv2.convertScaleAbs(bgr, alpha=1.0, beta=value)
+        result = cv2.merge([bgr, alpha])
+    else:
+        result = cv2.convertScaleAbs(img, alpha=1.0, beta=value)
+    out = make_output_path(path, f"bright_{value}")
+    save_image(out, result)
+    return out
+
+
 def convert_format(path, target_ext):
     """转换图片格式，例如 PNG 与 JPG 互转。"""
     target_ext = target_ext.lower().lstrip(".")
@@ -242,6 +258,11 @@ def build_parser():
     p_convert.add_argument("image")
     p_convert.add_argument("--to", required=True, help="目标扩展名，如 jpg / png")
 
+    p_bright = sub.add_parser("bright", help="调整亮度")
+    p_bright.add_argument("image")
+    p_bright.add_argument("--value", type=int, required=True,
+                          help="亮度增量，正数变亮、负数变暗，例如 30 或 -30")
+
     return parser
 
 
@@ -262,6 +283,8 @@ def main():
             print("输出:", grayscale_image(args.image))
         elif args.command == "convert":
             print("输出:", convert_format(args.image, args.to))
+        elif args.command == "bright":
+            print("输出:", brightness_image(args.image, args.value))
     except (FileNotFoundError, ValueError) as e:
         # 统一在这里把错误以清晰方式输出，避免堆栈直接暴露给用户
         print(f"错误: {e}", file=sys.stderr)
